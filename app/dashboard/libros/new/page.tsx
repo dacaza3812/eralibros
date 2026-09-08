@@ -14,6 +14,7 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
+  DragEndEvent,
 } from '@dnd-kit/core'
 import {
   arrayMove,
@@ -167,13 +168,13 @@ export default function NewBookPage() {
     })
   )
 
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
 
-    if (active.id !== over.id) {
+    if (over && active.id !== over.id) {
       setImages((items) => {
-        const oldIndex = items.findIndex((item) => item.id === active.id)
-        const newIndex = items.findIndex((item) => item.id === over.id)
+        const oldIndex = items.findIndex((item) => item.id === String(active.id))
+        const newIndex = items.findIndex((item) => item.id === String(over.id))
         const newItems = arrayMove(items, oldIndex, newIndex).map((item, idx) => ({
           ...item,
           order_index: idx,

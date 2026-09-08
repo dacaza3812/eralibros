@@ -73,7 +73,7 @@ async function getBook(slug: string): Promise<Book | null> {
     .eq('is_active', true)
     .single()
 
-  return data
+  return data as Book | null
 }
 
 export default async function BookDetailPage({

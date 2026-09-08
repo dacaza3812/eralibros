@@ -15,7 +15,7 @@ interface Book {
   stock_quantity: number
   is_active: boolean
   category_id: string | null
-  categories: { name: string } | null
+  categories: { name: string }[] | null
 }
 
 interface SearchParams {
@@ -131,7 +131,7 @@ export default async function BooksPage({
                     </td>
                     <td className="px-6 py-4">
                       <span className="text-[14px] font-[400] text-[#373734]">
-                        {book.categories?.name || '—'}
+                        {book.categories?.[0]?.name || '—'}
                       </span>
                     </td>
                     <td className="px-6 py-4">

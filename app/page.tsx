@@ -234,9 +234,9 @@ export default async function Home() {
                       
                       {/* Book Info */}
                       <div className="p-6">
-                        {book.categories && (
+                        {book.categories && book.categories[0] && (
                           <span className="text-[12px] font-[500] text-[#d97757] uppercase tracking-[1px]">
-                            {book.categories.name}
+                            {book.categories[0].name}
                           </span>
                         )}
                         <h3 className="text-[18px] font-[400] text-[#121212] mt-2 mb-1 leading-[1.4] group-hover:text-[#d97757] transition-colors">

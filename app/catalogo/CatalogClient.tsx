@@ -16,7 +16,7 @@ interface Book {
     image_url: string
     alt_text: string | null
   }>
-  categories: { name: string; slug: string } | null
+  categories: { name: string; slug: string }[] | null
 }
 
 interface Category {
@@ -38,7 +38,7 @@ export default function CatalogClient({ initialBooks, categories }: CatalogClien
 
   // Filter books client-side
   const filteredBooks = books.filter(book => {
-    const matchesCategory = !selectedCategory || book.categories?.slug === categories.find(c => c.id === selectedCategory)?.slug
+    const matchesCategory = !selectedCategory || book.categories?.[0]?.slug === categories.find(c => c.id === selectedCategory)?.slug
     const matchesSearch = !searchQuery || 
       book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       (book.author?.toLowerCase().includes(searchQuery.toLowerCase()))
@@ -142,7 +142,7 @@ export default function CatalogClient({ initialBooks, categories }: CatalogClien
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {filteredBooks.map(book => {
                 const mainImage = book.book_images?.[0]
-                const category = book.categories
+                const category = book.categories?.[0]
                 return (
                   <div
                     key={book.id}

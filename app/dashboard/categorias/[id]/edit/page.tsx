@@ -178,7 +178,7 @@ export default function EditCategoryPage() {
             </div>
             {autoSlug !== originalSlug && (
               <p className="mt-1 text-[12px] text-[#7b7974]">
-                El slug cambiará de "{originalSlug}" a "{autoSlug}"
+                El slug cambiará de &ldquo;{originalSlug}&rdquo; a &ldquo;{autoSlug}&rdquo;
               </p>
             )}
           </div>
