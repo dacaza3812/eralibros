@@ -39,3 +39,32 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# AI Agent configs and tools (local only)
+.agents/
+.atl/
+.claude/
+.opencode/
+.pi/
+.playwright/
+.playwright-cli/
+
+# Test artifacts and reports (generated locally)
+*-initial.yml
+*-after-*.yml
+*-before.yml
+*-loaded.yml
+*-filled.yml
+*-created.yml
+*-list.yml
+*-search-*.yml
+*_TEST_REPORT.md
+SETUP_GUIDE.md
+SUPABASE_SETUP_GUIDE.md
+auth-state.json
+dashboard-home.png
+session-*.md
+skills-lock.json
+test-catalogo.js
+setup-master.js
+nul
