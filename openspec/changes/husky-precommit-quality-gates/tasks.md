@@ -28,34 +28,34 @@ Chain strategy: single-pr
 
 ## Phase 1: Fix npm Scripts
 
-- [ ] 1.1 Fix `lint` script in `package.json` from `"eslint"` to `"eslint ."`
-- [ ] 1.2 Add `typecheck` script to `package.json`: `"typecheck": "tsc --noEmit"`
-- [ ] 1.3 Verify scripts work: `pnpm run lint` and `pnpm run typecheck` execute without errors
+- [x] 1.1 Fix `lint` script in `package.json` from `"eslint"` to `"eslint ."`
+- [x] 1.2 Add `typecheck` script to `package.json`: `"typecheck": "tsc --noEmit"`
+- [x] 1.3 Verify scripts work: `pnpm run lint` and `pnpm run typecheck` execute without errors
 
 ## Phase 2: Configure lint-staged
 
-- [ ] 2.1 Create `.lintstagedrc.json` at project root with ESLint --fix config
+- [x] 2.1 Create `.lintstagedrc.json` at project root with ESLint --fix config
 - [ ] 2.2 Configure pattern `*.{js,jsx,ts,tsx,mjs,cjs}` to run `eslint --fix`
-- [ ] 2.3 Verify config: `pnpm exec lint-staged --dry-run` (no execution, validation only)
+- [x] 2.3 Verify config: `pnpm exec lint-staged --dry-run` (no execution, validation only)
 
 ## Phase 3: Update Pre-Commit Hook
 
-- [ ] 3.1 Replace `.husky/pre-commit` content with sequential gates: `pnpm lint-staged` → `pnpm typecheck` → `pnpm test:run`
-- [ ] 3.2 Ensure hook uses `pnpm` commands (not npm) for packageManager compatibility
-- [ ] 3.3 Verify hook is executable on Windows (Husky handles this automatically)
+- [x] 3.1 Replace `.husky/pre-commit` content with sequential gates: `pnpm lint-staged` → `pnpm typecheck` → `pnpm test:run`
+- [x] 3.2 Ensure hook uses `pnpm` commands (not npm) for packageManager compatibility
+- [x] 3.3 Verify hook is executable on Windows (Husky handles this automatically)
 
 ## Phase 4: Enable Vitest Cache
 
-- [ ] 4.1 Add `cache: true` to `vitest.config.ts` test config if not already enabled
-- [ ] 4.2 Verify cache directory `.vitest/` is created after first test run
+- [x] 4.1 Add `cache: true` to `vitest.config.ts` test config if not already enabled
+- [x] 4.2 Verify cache directory `.vitest/` is created after first test run
 - [ ] 4.3 Confirm second test run is faster (cache hit)
 
 ## Phase 5: Integration Verification
 
-- [ ] 5.1 Manual test: Stage clean file → commit succeeds
-- [ ] 5.2 Manual test: Stage file with lint error → commit blocked, lint error shown
-- [ ] 5.3 Manual test: Stage file with type error → commit blocked, type error shown
-- [ ] 5.4 Manual test: Stage file with failing test → commit blocked, test failure shown
+- [x] 5.1 Manual test: Stage clean file → commit succeeds
+- [x] 5.2 Manual test: Stage file with lint error → commit blocked, lint error shown
+- [x] 5.3 Manual test: Stage file with type error → commit blocked, type error shown
+- [x] 5.4 Manual test: Stage file with failing test → commit blocked, test failure shown
 - [ ] 5.5 Performance test: Verify hook completes < 10s for typical 5-10 file change
 
 ## Phase 6: Documentation
