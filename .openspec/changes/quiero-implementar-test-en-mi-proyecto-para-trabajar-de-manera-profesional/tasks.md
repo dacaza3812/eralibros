@@ -446,7 +446,7 @@
   - LOC: 0 (command: pnpm exec playwright install --with-deps)
   - Estimate: 15 min
 
-- [ ] Task: Create playwright.config.ts
+- [x] Task: Create playwright.config.ts
   - File: playwright.config.ts (new)
   - Purpose: Configure Playwright for multi-browser E2E tests
   - Dependencies: 3.1 complete
@@ -463,8 +463,8 @@
 
 #### 3.2 Create E2E Test Setup
 
-- [ ] Task: Create auth setup script
-  - File: tests/e2e/setup/auth.setup.ts (new)
+- [x] Task: Create auth setup script
+  - File: tests/e2e/auth.setup.ts (new) — PR #13: placed at tests/e2e/ root per slice scope (not tests/e2e/setup/)
   - Purpose: Authenticate and save state for E2E tests
   - Dependencies: 3.2 complete
   - LOC: ~40
@@ -473,8 +473,8 @@
     - tests/e2e/.auth/admin.json (after admin login)
   - Estimate: 25 min
 
-- [ ] Task: Create .gitignore entry for auth state
-  - File: .gitignore (modify)
+- [x] Task: Create .gitignore entry for auth state
+  - File: .gitignore (modify) — PR #13: added tests/e2e/.auth/ plus playwright-report/ and test-results/
   - Purpose: Exclude auth state from version control
   - Dependencies: 3.3 complete
   - LOC: ~2
