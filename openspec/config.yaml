@@ -1,0 +1,77 @@
+project: eralibros
+initialized_at: "2026-09-08T16:30:00Z"
+
+stack:
+  framework: "Next.js"
+  version: "16.3.4"
+  language: "TypeScript"
+  styling: "Tailwind CSS"
+  backend: "Supabase"
+  runtime: "Node.js"
+
+testing:
+  has_tests: false
+  test_command: null
+  coverage_command: null
+  strict_tdd_supported: false
+
+architecture:
+  pattern: "File-based routing with App Router"
+  characteristics:
+    - "React Server Components by default"
+    - "Client Components with 'use client' directive"
+    - "API routes as Route Handlers"
+    - "Middleware for auth"
+
+conventions:
+  linting:
+    tool: "ESLint"
+    version: "9"
+    config: "eslint.config.mjs"
+    presets:
+      - "next/core-web-vitals"
+      - "next/typescript"
+  
+  formatting: null
+  
+  commits:
+    style: "conventional commits"
+    examples:
+      - "feat: add feature"
+      - "fix: resolve bug"
+      - "chore: maintenance"
+
+  git:
+    enabled: true
+    branch_strategy: "unknown"
+
+patterns:
+  server_components:
+    location: "app/**/*.tsx"
+    description: "Server Components for data fetching and static content"
+  
+  client_components:
+    marker: "'use client' directive"
+    description: "Client Components for interactivity"
+  
+  api_routes:
+    location: "app/api/**/route.ts"
+    description: "API endpoint handlers"
+
+tooling:
+  package_manager: "pnpm"
+  typescript_strict: true
+  build_command: "pnpm run build"
+  dev_command: "pnpm run dev"
+  lint_command: "pnpm run lint"
+
+artifact_store:
+  primary: "engram"
+  fallback: "openspec"
+  synchronized: true
+
+sdd_configuration:
+  execution_mode: "interactive"
+  artifact_store: "both"
+  delivery_strategy: "ask-on-risk"
+  review_budget_lines: 800
