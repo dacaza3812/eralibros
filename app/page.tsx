@@ -247,11 +247,7 @@ export default async function Home() {
                             {book.author}
                           </p>
                         )}
-                        {book.price && (
-                          <p className="text-[18px] font-[500] text-[#121212]">
-                            ${book.price.toLocaleString('es-AR')}
-                          </p>
-                        )}
+
                       </div>
                     </div>
                   </Link>
