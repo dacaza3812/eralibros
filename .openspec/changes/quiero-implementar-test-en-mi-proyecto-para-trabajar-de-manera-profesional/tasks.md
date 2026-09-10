@@ -353,7 +353,7 @@
 
 #### 2.3 Component Tests
 
-- [ ] Task: Create LoginForm component tests
+- [x] Task: Create LoginForm component tests
   - File: tests/components/LoginForm.test.tsx (new)
   - Purpose: Test login form behavior
   - Dependencies: Phase 1 complete
@@ -366,7 +366,7 @@
     - Handles redirectTo query param
   - Estimate: 50 min
 
-- [ ] Task: Create BookFilters component tests
+- [x] Task: Create BookFilters component tests
   - File: tests/components/BookFilters.test.tsx (new)
   - Purpose: Test book filtering UI
   - Dependencies: Phase 1 complete

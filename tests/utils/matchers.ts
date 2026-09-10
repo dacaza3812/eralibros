@@ -62,15 +62,8 @@ expect.extend({
   },
 });
 
-declare module 'vitest' {
-  interface Assertion {
-    toBeValidBook(): void;
-    toBeValidOrder(): void;
-    toBeValidCategory(): void;
-  }
-  interface AsymmetricMatchersContaining {
-    toBeValidBook(): void;
-    toBeValidOrder(): void;
-    toBeValidCategory(): void;
-  }
-}
+// NOTE: No `declare module 'vitest'` augmentation here on purpose.
+// @testing-library/jest-dom v7 augments Assertion with ONE type param (T)
+// while vitest 5 declares Assertion with TWO (R, T). Any source-level
+// augmentation conflicts with one of them (TS2428), so custom matchers
+// stay runtime-only until jest-dom supports vitest 5's signature.
