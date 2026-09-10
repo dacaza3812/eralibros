@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { createClient } from '@/lib/supabase/server'
 
@@ -18,6 +17,7 @@ interface Book {
     alt_text: string | null
   }>
 }
+
 
 export default async function Home() {
   const supabase = await createClient()
@@ -154,12 +154,12 @@ export default async function Home() {
       </nav>
 
       {/* Hero Section - Minimalist Anthropic Style */}
-      <section className="max-w-[1200px] mx-auto px-6 py-[100px]">
+      <section className="max-w-[1200px] mx-auto px-6 sm:px-8 lg:px-6 py-12 sm:py-16 lg:py-24">
         <div className="max-w-[960px]">
-          <h1 className="text-[72px] font-[400] leading-[1.1] text-[#121212] tracking-tight mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-[400] leading-[1.1] sm:leading-[1.15] text-[#121212] tracking-tight mb-4 sm:mb-6">
             Análisis literario comprehensivo
           </h1>
-          <p className="text-[18px] font-[400] leading-[1.6] text-[#373734] max-w-[720px] mb-8">
+          <p className="text-base sm:text-lg md:text-[18px] font-[400] leading-[1.6] sm:leading-[1.65] text-[#373734] max-w-[720px] mb-6 sm:mb-8">
             Plataforma de investigación bibliográfica con herramientas
             avanzadas de búsqueda y comparación. Explorá, analizad y
             contextualizad obras desde perspectiva crítica.
@@ -167,7 +167,7 @@ export default async function Home() {
           <div className="flex items-center gap-4">
             <Link
               href="/catalogo"
-              className="inline-flex items-center gap-2 px-8 py-3 bg-[#121212] text-[#f8f8f6] text-[14px] font-[500] rounded-[8px] hover:bg-[#000000] transition-colors duration-200">
+              className="inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 bg-[#121212] text-[#f8f8f6] text-sm sm:text-[14px] font-[500] rounded-[8px] hover:bg-[#000000] transition-colors duration-200">
               Explorar catálogo
               <svg
                 className="w-[14px] h-[14px]"
@@ -184,10 +184,10 @@ export default async function Home() {
 
       {/* Featured Books Section */}
       {featuredBooks && featuredBooks.length > 0 && (
-        <section className="max-w-[1200px] mx-auto px-6 py-[80px] border-t border-[#121212]/5">
+        <section className="max-w-[1200px] mx-auto px-6 sm:px-8 lg:px-6 py-12 sm:py-16 lg:py-20 border-t border-[#121212]/5">
           <div className="max-w-[960px]">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-[30px] font-[400] leading-[1.2] text-[#121212]">
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
+              <h2 className="text-2xl sm:text-[30px] font-[400] leading-[1.2] text-[#121212]">
                 Libros destacados
               </h2>
               <Link
@@ -199,7 +199,7 @@ export default async function Home() {
                 </svg>
               </Link>
             </div>
-            <p className="text-[14px] font-[400] text-[#7b7974] mb-12">
+            <p className="text-sm sm:text-[14px] font-[400] text-[#7b7974] mb-8 sm:mb-12">
               Últimas incorporaciones a nuestra colección
             </p>
 
@@ -264,10 +264,10 @@ export default async function Home() {
 
       {/* Classic Literature Section */}
       {classicBooks && classicBooks.length > 0 && (
-        <section className="max-w-[1200px] mx-auto px-6 py-[80px] border-t border-[#121212]/5">
+        <section className="max-w-[1200px] mx-auto px-6 sm:px-8 lg:px-6 py-12 sm:py-16 lg:py-20 border-t border-[#121212]/5">
           <div className="max-w-[960px]">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-[30px] font-[400] leading-[1.2] text-[#121212]">
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
+              <h2 className="text-2xl sm:text-[30px] font-[400] leading-[1.2] text-[#121212]">
                 Literatura clásica
               </h2>
               <Link
@@ -279,7 +279,7 @@ export default async function Home() {
                 </svg>
               </Link>
             </div>
-            <p className="text-[14px] font-[400] text-[#7b7974] mb-12">
+            <p className="text-sm sm:text-[14px] font-[400] text-[#7b7974] mb-8 sm:mb-12">
               Obras atemporales de la literatura universal
             </p>
 
@@ -333,20 +333,20 @@ export default async function Home() {
       )}
 
       {/* Latest Updates - Announcements Section */}
-      <section className="max-w-[1200px] mx-auto px-6 py-[80px] border-t border-[#121212]/5">
+      <section className="max-w-[1200px] mx-auto px-6 sm:px-8 lg:px-6 py-12 sm:py-16 lg:py-20 border-t border-[#121212]/5">
         <div className="max-w-[960px]">
-          <h2 className="text-[30px] font-[400] leading-[1.2] text-[#121212] mb-4">
+          <h2 className="text-2xl sm:text-[30px] font-[400] leading-[1.2] text-[#121212] mb-3 sm:mb-4">
             Latest updates
           </h2>
-          <p className="text-[14px] font-[400] text-[#7b7974] mb-12">
+          <p className="text-sm sm:text-[14px] font-[400] text-[#7b7974] mb-8 sm:mb-12">
             Novedades y actualizaciones del sistema
           </p>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <Link
               href="/catalogo?update=2026-01-filtro-idiomas"
-              className="group bg-[#ffffff] rounded-[16px] p-8 hover:bg-[#efebeb] transition-colors duration-200">
-              <div className="flex items-center justify-between mb-4">
+              className="group bg-[#ffffff] rounded-[16px] p-6 sm:p-8 hover:bg-[#efebeb] transition-colors duration-200">
+              <div className="flex items-center justify-between mb-3 sm:mb-4">
                 <span className="text-[12px] font-[500] text-[#d97757] uppercase tracking-[1px]">
                   Update
                 </span>
@@ -359,10 +359,10 @@ export default async function Home() {
                   <path d="M9 5l7 7-7 7" />
                 </svg>
               </div>
-              <h3 className="text-[18px] font-[400] text-[#121212] mb-2 leading-[1.4]">
+              <h3 className="text-base sm:text-[18px] font-[400] text-[#121212] mb-2 leading-[1.4]">
                 Nuevo: Filtro multi-idioma inicializado
               </h3>
-              <p className="text-[14px] font-[400] text-[#373734] leading-[1.6] mb-4">
+              <p className="text-sm sm:text-[14px] font-[400] text-[#373734] leading-[1.6] mb-3 sm:mb-4">
                 Sistema de clasificación para obras en 15 idiomas diferentes.
               </p>
               <div className="flex items-center gap-4 text-[12px] font-[400] text-[#7b7974]">
@@ -374,8 +374,8 @@ export default async function Home() {
 
             <Link
               href="/catalogo?update=2026-01-analisis-ficcion-cientifica"
-              className="group bg-[#ffffff] rounded-[16px] p-8 hover:bg-[#efebeb] transition-colors duration-200">
-              <div className="flex items-center justify-between mb-4">
+              className="group bg-[#ffffff] rounded-[16px] p-6 sm:p-8 hover:bg-[#efebeb] transition-colors duration-200">
+              <div className="flex items-center justify-between mb-3 sm:mb-4">
                 <span className="text-[12px] font-[500] text-[#d97757] uppercase tracking-[1px]">
                   Analysis
                 </span>
@@ -388,10 +388,10 @@ export default async function Home() {
                   <path d="M9 5l7 7-7 7" />
                 </svg>
               </div>
-              <h3 className="text-[18px] font-[400] text-[#121212] mb-2 leading-[1.4]">
+              <h3 className="text-base sm:text-[18px] font-[400] text-[#121212] mb-2 leading-[1.4]">
                 Tendencias en ciencia ficción continental
               </h3>
-              <p className="text-[14px] font-[400] text-[#373734] leading-[1.6] mb-4">
+              <p className="text-sm sm:text-[14px] font-[400] text-[#373734] leading-[1.6] mb-3 sm:mb-4">
                 Sobre 1,450 obras de ciencia ficción añadidas desde 2020.
               </p>
               <div className="flex items-center gap-4 text-[12px] font-[400] text-[#7b7974]">
@@ -403,8 +403,8 @@ export default async function Home() {
 
             <Link
               href="/catalogo?update=2026-02-herramienta-comparador"
-              className="group bg-[#ffffff] rounded-[16px] p-8 hover:bg-[#efebeb] transition-colors duration-200">
-              <div className="flex items-center justify-between mb-4">
+              className="group bg-[#ffffff] rounded-[16px] p-6 sm:p-8 hover:bg-[#efebeb] transition-colors duration-200">
+              <div className="flex items-center justify-between mb-3 sm:mb-4">
                 <span className="text-[12px] font-[500] text-[#d97757] uppercase tracking-[1px]">
                   Update
                 </span>
@@ -417,10 +417,10 @@ export default async function Home() {
                   <path d="M9 5l7 7-7 7" />
                 </svg>
               </div>
-              <h3 className="text-[18px] font-[400] text-[#121212] mb-2 leading-[1.4]">
+              <h3 className="text-base sm:text-[18px] font-[400] text-[#121212] mb-2 leading-[1.4]">
                 Comparador de obras habilitado
               </h3>
-              <p className="text-[14px] font-[400] text-[#373734] leading-[1.6] mb-4">
+              <p className="text-sm sm:text-[14px] font-[400] text-[#373734] leading-[1.6] mb-3 sm:mb-4">
                 Ahora podés analizar similitudes entre múltiples obras literarias.
               </p>
               <div className="flex items-center gap-4 text-[12px] font-[400] text-[#7b7974]">
@@ -432,8 +432,8 @@ export default async function Home() {
 
             <Link
               href="/catálogo?update=2026-02-obras-género-latino"
-              className="group bg-[#ffffff] rounded-[16px] p-8 hover:bg-[#efebeb] transition-colors duration-200">
-              <div className="flex items-center justify-between mb-4">
+              className="group bg-[#ffffff] rounded-[16px] p-6 sm:p-8 hover:bg-[#efebeb] transition-colors duration-200">
+              <div className="flex items-center justify-between mb-3 sm:mb-4">
                 <span className="text-[12px] font-[500] text-[#d97757] uppercase tracking-[1px]">
                   Collection
                 </span>
@@ -446,10 +446,10 @@ export default async function Home() {
                   <path d="M9 5l7 7-7 7" />
                 </svg>
               </div>
-              <h3 className="text-[18px] font-[400] text-[#121212] mb-2 leading-[1.4]">
+              <h3 className="text-base sm:text-[18px] font-[400] text-[#121212] mb-2 leading-[1.4]">
                 Colección género latino aumentada significativamente
               </h3>
-              <p className="text-[14px] font-[400] text-[#373734] leading-[1.6] mb-4">
+              <p className="text-sm sm:text-[14px] font-[400] text-[#373734] leading-[1.6] mb-3 sm:mb-4">
                 Sobre 800 obras de género latino añadidas.
               </p>
               <div className="flex items-center gap-4 text-[12px] font-[400] text-[#7b7974]">
@@ -463,25 +463,25 @@ export default async function Home() {
       </section>
 
       {/* Feature Section - Content-driven */}
-      <section className="max-w-[1200px] mx-auto px-6 py-[80px] border-t border-[#121212]/5">
+      <section className="max-w-[1200px] mx-auto px-6 sm:px-8 lg:px-6 py-12 sm:py-16 lg:py-20 border-t border-[#121212]/5">
         <div className="max-w-[960px]">
-          <h2 className="text-[30px] font-[400] leading-[1.2] text-[#121212] mb-4">
+          <h2 className="text-2xl sm:text-[30px] font-[400] leading-[1.2] text-[#121212] mb-3 sm:mb-4">
             Functionality system
           </h2>
-          <p className="text-[14px] font-[400] text-[#7b7974] mb-12">
+          <p className="text-sm sm:text-[14px] font-[400] text-[#7b7974] mb-8 sm:mb-12">
             Sistema de análisis y exploración bibliográfica
           </p>
 
-          <div className="lg:grid lg:grid-cols-2 gap-8">
-            <div className="bg-[#ffffff] rounded-[16px] p-10">
-              <h3 className="text-[30px] font-[400] leading-[1.2] text-[#121212] mb-4">
+          <div className="space-y-6 lg:grid lg:grid-cols-2 lg:gap-8 lg:space-y-0">
+            <div className="bg-[#ffffff] rounded-[16px] p-6 sm:p-8 lg:p-10">
+              <h3 className="text-2xl sm:text-[30px] font-[400] leading-[1.2] text-[#121212] mb-3 sm:mb-4">
                 Parameter analysis
               </h3>
-              <p className="text-[16px] font-[400] leading-[1.6] text-[#373734] mb-6">
+              <p className="text-base sm:text-[16px] font-[400] leading-[1.6] text-[#373734] mb-4 sm:mb-6">
                 Identificad, clasificad y estructurad parámetros temáticos,
                 estilísticos y conceptuales de cualquier obra en el catálogo.
               </p>
-              <ul className="space-y-4">
+              <ul className="space-y-3 sm:space-y-4">
                 {[
                   "Palabras clave y conceptos principales",
                   "Tropos recurrentes y estructurales",
@@ -490,7 +490,7 @@ export default async function Home() {
                 ].map((item, index) => (
                   <li
                     key={index}
-                    className="text-[14px] font-[400] text-[#7b7974] leading-[1.5] flex items-start gap-3">
+                    className="text-sm sm:text-[14px] font-[400] text-[#7b7974] leading-[1.5] flex items-start gap-3">
                     <div className="w-1 h-1 rounded-full bg-[#d97757] mt-[8px] flex-shrink-0"></div>
                     <span>{item}</span>
                   </li>
@@ -498,15 +498,15 @@ export default async function Home() {
               </ul>
             </div>
 
-            <div className="bg-[#ffffff] rounded-[16px] p-10">
-              <h3 className="text-[30px] font-[400] leading-[1.2] text-[#121212] mb-4">
+            <div className="bg-[#ffffff] rounded-[16px] p-6 sm:p-8 lg:p-10">
+              <h3 className="text-2xl sm:text-[30px] font-[400] leading-[1.2] text-[#121212] mb-3 sm:mb-4">
                 Comparative frameworks
               </h3>
-              <p className="text-[16px] font-[400] leading-[1.6] text-[#373734] mb-6">
+              <p className="text-base sm:text-[16px] font-[400] leading-[1.6] text-[#373734] mb-4 sm:mb-6">
                 Contrastad múltiples obras simultáneamente identificando
                 convergencias y divergencias temáticas, estilísticas y contextuales.
               </p>
-              <ul className="space-y-4">
+              <ul className="space-y-3 sm:space-y-4">
                 {[
                   "Comparación directa de múltiples obras",
                   "Identificación de patrones recurrentes",
@@ -515,7 +515,7 @@ export default async function Home() {
                 ].map((item, index) => (
                   <li
                     key={index}
-                    className="text-[14px] font-[400] text-[#7b7974] leading-[1.5] flex items-start gap-3">
+                    className="text-sm sm:text-[14px] font-[400] text-[#7b7974] leading-[1.5] flex items-start gap-3">
                     <div className="w-1 h-1 rounded-full bg-[#d97757] mt-[8px] flex-shrink-0"></div>
                     <span>{item}</span>
                   </li>
@@ -527,17 +527,17 @@ export default async function Home() {
       </section>
 
       {/* Featured Content */}
-      <section className="max-w-[1200px] mx-auto px-6 py-[80px]">
+      <section className="max-w-[1200px] mx-auto px-6 sm:px-8 lg:px-6 py-12 sm:py-16 lg:py-20">
         <div className="max-w-[960px]">
-          <h2 className="text-[30px] font-[400] leading-[1.2] text-[#121212] mb-4">
+          <h2 className="text-2xl sm:text-[30px] font-[400] leading-[1.2] text-[#121212] mb-3 sm:mb-4">
             Featured analysis
           </h2>
-          <p className="text-[14px] font-[400] text-[#7b7974] mb-12">
+          <p className="text-sm sm:text-[14px] font-[400] text-[#7b7974] mb-8 sm:mb-12">
             Análisis destacados del sistema
           </p>
 
-          <div className="bg-[#ffffff] rounded-[16px] p-10">
-            <div className="flex items-center gap-2 mb-6">
+          <div className="bg-[#ffffff] rounded-[16px] p-6 sm:p-8 lg:p-10">
+            <div className="flex items-center gap-2 mb-4 sm:mb-6">
               <span className="text-[12px] font-[500] text-[#d97757] uppercase tracking-[1px]">
                 On y
               </span>
@@ -545,16 +545,16 @@ export default async function Home() {
                 Enero 2026
               </span>
             </div>
-            <h3 className="text-[28px] font-[400] leading-[1.2] text-[#121212] mb-4">
+            <h3 className="text-xl sm:text-2xl lg:text-[28px] font-[400] leading-[1.2] text-[#121212] mb-3 sm:mb-4">
               Gabriel García Márquez: evolución estilística
             </h3>
-            <p className="text-[16px] font-[400] leading-[1.6] text-[#373734] mb-6">
+            <p className="text-base sm:text-[16px] font-[400] leading-[1.6] text-[#373734] mb-4 sm:mb-6">
               Análisis estructural de la obra de Márquez desde sus inicios en
               One Hundred Years of Solitude hasta su producción más reciente,
               identificando influencias, técnicas narrativas y evolucion de
               matíces estilísticos a través de su extenso catálogo.
             </p>
-            <div className="flex items-center gap-8 text-[14px] font-[400] text-[#7b7974]">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8 text-[14px] font-[400] text-[#7b7974]">
               <div>
                 <div className="text-[12px] font-[400] text-[#9c9a92] uppercase tracking-[1px] mb-1">
                   Incluye
@@ -586,19 +586,19 @@ export default async function Home() {
       </section>
 
       {/* CTA Section - Minimalist */}
-      <section className="max-w-[1200px] mx-auto px-6 py-[80px]">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+      <section className="max-w-[1200px] mx-auto px-6 sm:px-8 lg:px-6 py-12 sm:py-16 lg:py-20">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 sm:gap-8">
           <div className="max-w-[640px]">
-            <h2 className="text-[30px] font-[400] leading-[1.2] text-[#121212] mb-4">
+            <h2 className="text-2xl sm:text-[30px] font-[400] leading-[1.2] text-[#121212] mb-3 sm:mb-4">
               Explore literature at scale
             </h2>
-            <p className="text-[16px] font-[400] leading-[1.6] text-[#373734]">
+            <p className="text-base sm:text-[16px] font-[400] leading-[1.6] text-[#373734]">
               Accedé al catálogo completo y explorá obras bajo perspectiva crítica.
             </p>
           </div>
           <Link
             href="/catalogo"
-            className="inline-flex items-center gap-2 px-8 py-3 bg-[#121212] text-[#f8f8f6] text-[14px] font-[500] rounded-[8px] hover:bg-[#000000] transition-colors duration-200">
+            className="inline-flex items-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 bg-[#121212] text-[#f8f8f6] text-sm sm:text-[14px] font-[500] rounded-[8px] hover:bg-[#000000] transition-colors duration-200 self-start">
             Introducir al catálogo
             <svg
               className="w-[14px] h-[14px]"

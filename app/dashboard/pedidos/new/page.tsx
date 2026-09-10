@@ -36,21 +36,20 @@ export default function NewOrderPage() {
   const [items, setItems] = useState<OrderItem[]>([])
   const [showBookSearch, setShowBookSearch] = useState(false)
 
-  async function fetchBooks() {
-    try {
-      const response = await fetch('/api/books')
-      if (response.ok) {
-        const data = await response.json()
-        setBooks(data.filter((b: Book) => b.price !== null))
-      }
-    } catch (error) {
-      console.error('Error fetching books:', error)
-    }
-  }
-
   // Fetch books on mount
   useEffect(() => {
-    fetchBooks()
+    async function loadBooks() {
+      try {
+        const response = await fetch('/api/books')
+        if (response.ok) {
+          const data = await response.json()
+          setBooks(data.filter((b: Book) => b.price !== null))
+        }
+      } catch (error) {
+        console.error('Error fetching books:', error)
+      }
+    }
+    loadBooks()
   }, [])
 
   // Filter books based on search - using useMemo instead of useEffect

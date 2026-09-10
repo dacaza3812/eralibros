@@ -39,7 +39,7 @@ export async function POST(request: Request) {
       image_url: urlData.publicUrl,
       image_path: data.path,
     })
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
