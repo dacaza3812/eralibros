@@ -1,0 +1,202 @@
+# Test Suite — CI pipeline for the eralibros testing infrastructure.
+#
+# What runs, in order (each job blocks the next via `needs`):
+#   lint -> typecheck -> unit (vitest with coverage gate) -> e2e (Playwright, chromium)
+# A red job blocks merge once these jobs are marked as required status checks in
+# branch protection (Settings > Branches > Require status checks to pass).
+#
+# Triggers: pushes to the default branches and every pull request.
+#
+# Required GitHub Secrets (Settings > Secrets and variables > Actions):
+#   NEXT_PUBLIC_SUPABASE_URL               Supabase project URL (app + E2E dev server)
+#   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY   Supabase publishable key
+#   TEST_USER_EMAIL / TEST_USER_PASSWORD   Regular user for auth E2E and auth setup
+#   TEST_ADMIN_EMAIL / TEST_ADMIN_PASSWORD Admin user for admin E2E and auth setup
+# When the TEST_* secrets are absent, the E2E job skips gracefully with a
+# notice instead of failing; lint, typecheck, and unit coverage still gate.
+#
+# Coverage gate: `pnpm test:coverage` runs vitest with the thresholds declared
+# in vitest.config.ts (lines/functions/branches/statements 50%). Vitest exits
+# non-zero below a threshold, so this workflow never passes with low coverage.
+# Do not lower those thresholds to make CI green — fix or add tests instead.
+# The HTML/LCOV report is uploaded as an artifact and linked from the job
+# summary, so no external coverage service token is needed.
+#
+# E2E scoping: the chromium/firefox/webkit projects in playwright.config.ts do
+# not exclude admin specs, so CI scopes files explicitly per project instead of
+# running an unscoped `playwright test` (which would run admin specs twice —
+# once in chromium and once in the admin project). The admin project pulls its
+# `setup` dependency (auth storageState) automatically.
+
+name: Test Suite
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+# Least privilege: artifacts and job summaries need nothing more.
+permissions:
+  contents: read
+
+# A new push or PR update cancels the superseded run for the same ref.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.6.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run ESLint
+        run: pnpm lint
+
+  typecheck:
+    name: Typecheck
+    runs-on: ubuntu-latest
+    needs: [lint]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.6.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run typecheck
+        run: pnpm typecheck
+
+  unit:
+    name: Unit, component and API tests (coverage gate)
+    runs-on: ubuntu-latest
+    needs: [typecheck]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.6.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run vitest with coverage (thresholds enforced)
+        run: pnpm test:coverage
+
+      - name: Upload coverage artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Coverage summary
+        if: always()
+        run: |
+          {
+            echo "## Coverage gate"
+            echo ""
+            echo "Thresholds (vitest.config.ts): lines, functions, branches, statements >= 50%."
+            echo "\`pnpm test:coverage\` fails this job below any threshold."
+            echo ""
+            echo "Full HTML report: download the \`coverage-report\` artifact from this run."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  e2e:
+    name: E2E tests (Playwright, chromium)
+    runs-on: ubuntu-latest
+    needs: [unit]
+    env:
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+      TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
+      TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+      TEST_ADMIN_EMAIL: ${{ secrets.TEST_ADMIN_EMAIL }}
+      TEST_ADMIN_PASSWORD: ${{ secrets.TEST_ADMIN_PASSWORD }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.6.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check E2E secrets
+        id: e2e-secrets
+        run: |
+          if [ -z "${{ secrets.TEST_USER_EMAIL }}" ] || [ -z "${{ secrets.TEST_USER_PASSWORD }}" ] || [ -z "${{ secrets.TEST_ADMIN_EMAIL }}" ] || [ -z "${{ secrets.TEST_ADMIN_PASSWORD }}" ]; then
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::E2E secrets are missing - skipping live browser tests. Configure TEST_USER_EMAIL, TEST_USER_PASSWORD, TEST_ADMIN_EMAIL and TEST_ADMIN_PASSWORD to enable them."
+          else
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install Playwright chromium
+        if: steps.e2e-secrets.outputs.available == 'true'
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Run public E2E specs (chromium)
+        if: steps.e2e-secrets.outputs.available == 'true'
+        run: pnpm test:e2e -- --project=chromium tests/e2e/auth.spec.ts tests/e2e/catalog.spec.ts
+
+      - name: Run admin E2E specs (auth setup runs via project dependencies)
+        if: steps.e2e-secrets.outputs.available == 'true'
+        run: pnpm test:e2e -- --project=admin tests/e2e/admin
+
+      - name: Upload Playwright report
+        if: always() && steps.e2e-secrets.outputs.available == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          if-no-files-found: warn
+          retention-days: 30

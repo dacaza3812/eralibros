@@ -543,7 +543,7 @@
 
 #### 3.4 CI Integration
 
-- [ ] Task: Create GitHub Actions workflow
+- [x] Task: Create GitHub Actions workflow — PR #15: created (lint → typecheck → unit/coverage gate → E2E chromium-scoped, graceful E2E skip without secrets, concurrency + pnpm cache)
   - File: .github/workflows/test.yml (new)
   - Purpose: Run tests in CI with coverage reporting
   - Dependencies: All phases complete
@@ -557,6 +557,7 @@
 
 - [ ] Task: Add CI-specific test configuration
   - File: vitest.config.ts (modify)
+  - Status (PR #15): intentionally not modified — thresholds verified in place (lines/functions/branches/statements 50, not lowered); the `github-actions` reporter is already automatic in installed vitest 5 when `GITHUB_ACTIONS=true` (vitest/dist defaults), so no config change is needed for the coverage gate. Left for sdd-verify to close or drop.
   - Purpose: Enable CI-specific settings (bail, reporters)
   - Dependencies: 1.2 complete
   - LOC: ~5 modified
