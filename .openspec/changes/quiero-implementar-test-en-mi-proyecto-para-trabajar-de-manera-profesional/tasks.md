@@ -337,14 +337,14 @@
   - LOC: ~100
   - Estimate: 50 min
 
-- [ ] Task: Create settings API route tests
+- [x] Task: Create settings API route tests
   - File: tests/api/settings.test.ts (new)
   - Purpose: Test /api/settings endpoints
   - Dependencies: Phase 1 complete
   - LOC: ~90
   - Estimate: 45 min
 
-- [ ] Task: Create settings/[key] API route tests
+- [x] Task: Create settings/[key] API route tests
   - File: tests/api/settings/[key].test.ts (new)
   - Purpose: Test single setting operations
   - Dependencies: Phase 1 complete
