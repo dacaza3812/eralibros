@@ -483,8 +483,8 @@
 
 #### 3.3 Create E2E Tests
 
-- [ ] Task: Create authentication E2E tests
-  - File: tests/e2e/auth.spec.ts (new)
+- [x] Task: Create authentication E2E tests
+  - File: tests/e2e/auth.spec.ts (new) — PR #14: created
   - Purpose: Test login/logout flows
   - Dependencies: 3.2 complete
   - LOC: ~90
@@ -496,8 +496,8 @@
     - Protected routes redirect to login
   - Estimate: 45 min
 
-- [ ] Task: Create books catalog E2E tests
-  - File: tests/e2e/books.spec.ts (new)
+- [x] Task: Create books catalog E2E tests
+  - File: tests/e2e/books.spec.ts (new) — PR #14: created as tests/e2e/catalog.spec.ts per slice scope
   - Purpose: Test public books catalog
   - Dependencies: 3.2 complete
   - LOC: ~80
@@ -508,8 +508,8 @@
     - Search filter works
   - Estimate: 40 min
 
-- [ ] Task: Create books CRUD E2E tests (admin)
-  - File: tests/e2e/admin/books-crud.spec.ts (new)
+- [x] Task: Create books CRUD E2E tests (admin)
+  - File: tests/e2e/admin/books-crud.spec.ts (new) — PR #14: created
   - Purpose: Test admin book management
   - Dependencies: 3.2 complete, 3.3 complete
   - LOC: ~110
@@ -521,8 +521,8 @@
     - Validation errors
   - Estimate: 55 min
 
-- [ ] Task: Create orders management E2E tests
-  - File: tests/e2e/admin/orders.spec.ts (new)
+- [x] Task: Create orders management E2E tests
+  - File: tests/e2e/admin/orders.spec.ts (new) — PR #14: created
   - Purpose: Test admin order management
   - Dependencies: 3.2 complete, 3.3 complete
   - LOC: ~100
